@@ -1,0 +1,55 @@
+{
+  "name": "@tatsuyaishibe/careerpassport-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for Career Passport API v2 - access career credentials, projects, feedbacks, GPAs, and awards",
+  "type": "module",
+  "bin": {
+    "careerpassport-mcp": "./bin/careerpassport-mcp.mjs"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "bin"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.25.0",
+    "dotenv": "^17.3.1",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@vitest/coverage-v8": "^3.2.4",
+    "tsx": "^4.16.0",
+    "typescript": "^5.5.0",
+    "vitest": "^3.0.0"
+  },
+  "keywords": [
+    "mcp",
+    "career-passport",
+    "modelcontextprotocol",
+    "openclaw",
+    "verifiable-credentials"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TatsuyaIshibe/careerpassport-mcp.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
+}

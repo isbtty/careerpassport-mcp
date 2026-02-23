@@ -1,6 +1,6 @@
 {
   "name": "@tatsuyaishibe/careerpassport-mcp",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "MCP server for Career Passport API v2 - access career credentials, projects, feedbacks, GPAs, and awards",
   "type": "module",
   "bin": {

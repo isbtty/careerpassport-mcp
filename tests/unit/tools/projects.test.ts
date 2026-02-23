@@ -107,7 +107,7 @@ describe('registerProjectTools', () => {
   })
 
   describe('issue-project handler', () => {
-    it('sends POST request with project data', async () => {
+    it('sends POST request with responsibility only', async () => {
       mockApiClient.post.mockResolvedValue(undefined)
 
       const args = {
@@ -122,7 +122,9 @@ describe('registerProjectTools', () => {
 
       await issueProjectHandler(args)
 
-      expect(mockApiClient.post).toHaveBeenCalledWith('/vcs/v2/me/projects', args)
+      expect(mockApiClient.post).toHaveBeenCalledWith('/vcs/v2/me/projects', {
+        responsibility: 'Lead developer',
+      })
     })
 
     it('returns success message on successful issuance', async () => {

@@ -65,35 +65,14 @@ export function registerProjectTools(
     {
       responsibility: z.string().min(1)
         .describe("The user's responsibility in the project (required)"),
-      achievement: z.string().optional()
-        .describe('Key achievements during the project'),
-      title: z.string().optional()
-        .describe('Project title'),
-      startDate: z.string().optional()
-        .describe('Project start date (YYYY-MM-DD)'),
-      endDate: z.string().optional()
-        .describe('Project end date (YYYY-MM-DD)'),
-      roles: z.string().optional()
-        .describe('Roles held during the project'),
-      teamStructure: z.string().optional()
-        .describe('Description of the team structure'),
     },
     async (args) => {
       try {
-        // Some CareerPassport API endpoints reject unknown/empty properties.
-        // To avoid accidental inclusion of empty strings from clients, only send
-        // non-empty optional fields.
-        const body: Record<string, unknown> = {
+        // CareerPassport API seems strict about accepted properties.
+        // Send only the required responsibility field.
+        await apiClient.post('/vcs/v2/me/projects', {
           responsibility: args.responsibility,
-        }
-        if (args.achievement && args.achievement.trim() !== '') body.achievement = args.achievement
-        if (args.title && args.title.trim() !== '') body.title = args.title
-        if (args.startDate && args.startDate.trim() !== '') body.startDate = args.startDate
-        if (args.endDate && args.endDate.trim() !== '') body.endDate = args.endDate
-        if (args.roles && args.roles.trim() !== '') body.roles = args.roles
-        if (args.teamStructure && args.teamStructure.trim() !== '') body.teamStructure = args.teamStructure
-
-        await apiClient.post('/vcs/v2/me/projects', body)
+        })
         return {
           content: [{
             type: 'text' as const,

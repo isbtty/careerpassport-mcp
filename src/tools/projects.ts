@@ -80,7 +80,20 @@ export function registerProjectTools(
     },
     async (args) => {
       try {
-        await apiClient.post('/vcs/v2/me/projects', args)
+        // Some CareerPassport API endpoints reject unknown/empty properties.
+        // To avoid accidental inclusion of empty strings from clients, only send
+        // non-empty optional fields.
+        const body: Record<string, unknown> = {
+          responsibility: args.responsibility,
+        }
+        if (args.achievement && args.achievement.trim() !== '') body.achievement = args.achievement
+        if (args.title && args.title.trim() !== '') body.title = args.title
+        if (args.startDate && args.startDate.trim() !== '') body.startDate = args.startDate
+        if (args.endDate && args.endDate.trim() !== '') body.endDate = args.endDate
+        if (args.roles && args.roles.trim() !== '') body.roles = args.roles
+        if (args.teamStructure && args.teamStructure.trim() !== '') body.teamStructure = args.teamStructure
+
+        await apiClient.post('/vcs/v2/me/projects', body)
         return {
           content: [{
             type: 'text' as const,

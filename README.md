@@ -335,12 +335,6 @@ rm ~/.careerpassport-mcp/tokens.json
 
 保存済みトークンを削除して再起動すると、OAuth フローが再度実行されます。
 
-### パッケージの更新
-
-```bash
-npm update -g @tatsuyaishibe/careerpassport-mcp
-```
-
 ---
 
 ## 開発
